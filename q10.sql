@@ -1,0 +1,2 @@
+-- Q10: Sales representative performance
+SELECT r.rep_name,r.region,r.sales_target,ROUND(COALESCE(SUM(CASE WHEN o.status='Completed' THEN o.amount END),0),2) AS completed_revenue,CASE WHEN COALESCE(SUM(CASE WHEN o.status='Completed' THEN o.amount END),0)>=r.sales_target THEN 'Met target' ELSE 'Below target' END AS target_status FROM sales_reps r LEFT JOIN orders o ON o.rep_id=r.rep_id GROUP BY r.rep_id,r.rep_name,r.region,r.sales_target ORDER BY completed_revenue DESC;
